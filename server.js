@@ -1,7 +1,9 @@
 const express = require('express');
 const { ExpressPeerServer } = require('peer');
+const cors = require('cors');
 const app = express();
-const server = app.listen(process.env.PORT || 10000);
-const peerServer = ExpressPeerServer(server, {path: '/myapp'});
-app.use('/peerjs', peerServer);
-app.get('/', (req,res)=>res.send('Server ON bos'));
+app.use(cors());
+app.get('/', (req, res) => res.send('Server Rendi Online!'));
+const server = app.listen(process.env.PORT || 3000);
+const peerServer = ExpressPeerServer(server, { debug: true, path: '/myapp' });
+app.use('/myapp', peerServer);
